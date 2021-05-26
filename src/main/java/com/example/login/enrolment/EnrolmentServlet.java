@@ -77,8 +77,13 @@ public class EnrolmentServlet extends HttpServlet {
   private void insertEnrolment(HttpServletRequest request, HttpServletResponse response) throws IOException {
     int studentId = Integer.parseInt(request.getParameter("student_id"));
     int subjectId = Integer.parseInt(request.getParameter("subject_id"));
-    Enrolment enrolment = new Enrolment(studentId, subjectId);
-    enrolmentDAO.insertEnrolment(enrolment);
+    boolean isEnrolValid = studentDAO.isEnrolValid(studentId, subjectId);
+    if (isEnrolValid) {
+      Enrolment enrolment = new Enrolment(studentId, subjectId);
+      enrolmentDAO.insertEnrolment(enrolment);
+    } else {
+      request.setAttribute("error", "Student does not complete prerequisite subject");
+    }
     response.sendRedirect(request.getContextPath()+"/enrolment-servlet?action=list");
   }
 
@@ -91,8 +96,8 @@ public class EnrolmentServlet extends HttpServlet {
   private void showEditEnrolment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     int id = Integer.parseInt(request.getParameter("id"));
     Enrolment enrolment = enrolmentDAO.selectEnrolment(id);
-    RequestDispatcher dispatcher = request.getRequestDispatcher("enrolment-form.jsp");
     request.setAttribute("enrolment", enrolment);
+    RequestDispatcher dispatcher = request.getRequestDispatcher("enrolment-form.jsp");
     dispatcher.forward(request, response);
   }
 

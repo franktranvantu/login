@@ -11,7 +11,7 @@
 		<h4>
 			<a href="${pageContext.request.contextPath}/enrolment-servlet?action=list">List All Enrolments</a>
 			<br>
-			<a href="${pageContext.request.contextPath}">Admin's Home</a>
+			<a href="${pageContext.request.contextPath}">Home</a>
 		</h4>
 	</center>
 	<div align="center">

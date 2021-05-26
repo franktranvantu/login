@@ -84,8 +84,8 @@ public class StudentServlet extends HttpServlet {
   private void showEditStudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     int id = Integer.parseInt(request.getParameter("id"));
     Student existingStudent = studentDAO.selectStudent(id);
-    RequestDispatcher dispatcher = request.getRequestDispatcher("student-form.jsp");
     request.setAttribute("student", existingStudent);
+    RequestDispatcher dispatcher = request.getRequestDispatcher("student-form.jsp");
     dispatcher.forward(request, response);
   }
 

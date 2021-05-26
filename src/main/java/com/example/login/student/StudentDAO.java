@@ -1,5 +1,8 @@
 package com.example.login.student;
 
+import com.example.login.subject.Subject;
+import com.example.login.subject.SubjectDAO;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,9 +12,15 @@ import java.util.List;
 
 public class StudentDAO {
 
+  private SubjectDAO subjectDAO;
+
   private String url = "jdbc:mysql://localhost:3306/helen";
   private String username = "root";
   private String password = "frank";
+
+  public StudentDAO() {
+    subjectDAO = new SubjectDAO();
+  }
 
   public Connection getConnection() {
     Connection connection = null;
@@ -101,5 +110,24 @@ public class StudentDAO {
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  public boolean isEnrolValid(int studentId, int subjectId) {
+    Subject subject = subjectDAO.selectSubject(subjectId);
+    String sql = "SELECT subject_id FROM student_subject_complete WHERE student_id = ?";
+    try (Connection connection = getConnection()) {
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      preparedStatement.setInt(1, studentId);
+      ResultSet rs = preparedStatement.executeQuery();
+      while (rs.next()) {
+        int completedSubjectId = rs.getInt("subject_id");
+        if (subject.getPrerequisite() == completedSubjectId) {
+          return true;
+        }
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return false;
   }
 }

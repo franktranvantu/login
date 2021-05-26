@@ -28,15 +28,15 @@ public class SubjectDAO {
 
   public List<Subject> selectAllSubjects() {
     List<Subject> subjects = new ArrayList<>();
-    String sql = "SELECT * FROM subject";
+    String sql = "SELECT pre.id, pre.name AS name, s.name AS prerequisite_name FROM subject s RIGHT JOIN subject pre ON s.id = pre.prerequisite;";
     try (Connection connection = getConnection()) {
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
       ResultSet rs = preparedStatement.executeQuery();
       while (rs.next()) {
         int id = rs.getInt("id");
         String name = rs.getString("name");
-        String prerequisite = rs.getString("prerequisite");
-        subjects.add(new Subject(id, name, prerequisite));
+        String prerequisiteName = rs.getString("prerequisite_name");
+        subjects.add(new Subject(id, name, prerequisiteName));
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -53,7 +53,7 @@ public class SubjectDAO {
       while (rs.next()) {
         int id = rs.getInt("id");
         String name = rs.getString("name");
-        String prerequisite = rs.getString("prerequisite");
+        int prerequisite = Integer.parseInt(rs.getString("prerequisite"));
         return new Subject(id, name, prerequisite);
       }
     } catch (Exception e) {
@@ -67,7 +67,7 @@ public class SubjectDAO {
     try (Connection connection = getConnection()) {
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
       preparedStatement.setString(1, subject.getName());
-      preparedStatement.setString(2, subject.getPrerequisite());
+      preparedStatement.setInt(2, subject.getPrerequisite());
 
       preparedStatement.executeUpdate();
     } catch (Exception e) {
@@ -80,7 +80,7 @@ public class SubjectDAO {
     try (Connection connection = getConnection()) {
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
       preparedStatement.setString(1, subject.getName());
-      preparedStatement.setString(2, subject.getPrerequisite());
+      preparedStatement.setInt(2, subject.getPrerequisite());
       preparedStatement.setInt(3, subject.getId());
 
       preparedStatement.executeUpdate();

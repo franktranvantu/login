@@ -13,7 +13,7 @@
 				<h4>
 					<a href="${pageContext.request.contextPath}/subject-servlet?action=new">Add New Subject</a>
 					<br>
-					<a href="${pageContext.request.contextPath}">Admin's Home</a>
+					<a href="${pageContext.request.contextPath}">Home</a>
 				</h4>
 			</center>
 			<tr align=center>
@@ -27,7 +27,7 @@
 				<tr align=center>
 					<td><c:out value="${subject.getId()}" /></td>
 					<td><c:out value="${subject.getName()}" /></td>
-					<td><c:out value="${subject.getPrerequisite()}" /></td>
+					<td><c:out value="${subject.getPrerequisiteName()}" /></td>
 					<td>
 						|<a href="${pageContext.request.contextPath}/subject-servlet?action=edit&id=<c:out value='${subject.getId()}' />">Edit</a>|
 						|<a	href="${pageContext.request.contextPath}/subject-servlet?action=delete&id=<c:out value='${subject.getId()}' />">Delete</a>|

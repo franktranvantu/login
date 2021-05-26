@@ -11,7 +11,7 @@
 		<h4>
 			<a href="${pageContext.request.contextPath}/student-servlet?action=list">List All Students</a>
 			<br>
-			<a href="${pageContext.request.contextPath}">Admin's Home</a>
+			<a href="${pageContext.request.contextPath}">Home</a>
 		</h4>
 	</center>
 	<div align="center">
@@ -38,11 +38,22 @@
 			</tr>
 			<tr>
 				<th>Status:</th>
-				<td><input type="text" name="status" size="45" required value="<c:out value='${student.getStatus()}' />" /></td>
+				<td>
+					<select name="status">
+						<option value="Part time" ${student.getStatus() == 'Part time' ? 'selected' : ''}>Part time</option>
+						<option value="Full time" ${student.getStatus() == 'Full time' ? 'selected' : ''}>Full time</option>
+					</select>
+				</td>
 			</tr>
 			<tr>
 				<th>Major:</th>
-				<td><input type="text" name="major" min="10" required value="<c:out value='${student.getMajor()}' />" /></td>
+				<td>
+					<select name="major">
+						<option value="B" ${student.getMajor() == 'B' ? 'selected' : ''}>B</option>
+						<option value="N" ${student.getMajor() == 'N' ? 'selected' : ''}>N</option>
+						<option value="D" ${student.getMajor() == 'D' ? 'selected' : ''}>D</option>
+					</select>
+				</td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center"><input type="submit" value="Save" /></td>
