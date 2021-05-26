@@ -71,7 +71,7 @@ public class SubjectServlet extends HttpServlet {
 
   private void insertSubject(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String name = request.getParameter("name");
-    String prerequisite = request.getParameter("prerequisite");
+    int prerequisite = Integer.parseInt(request.getParameter("prerequisite"));
     Subject Subject = new Subject(name, prerequisite);
     subjectDAO.insertSubject(Subject);
     response.sendRedirect(request.getContextPath()+"/subject-servlet?action=list");
@@ -85,16 +85,18 @@ public class SubjectServlet extends HttpServlet {
 
   private void showEditSubject(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     int id = Integer.parseInt(request.getParameter("id"));
+    List<Subject> subjects = subjectDAO.selectAllSubjects();
     Subject existingSubject = subjectDAO.selectSubject(id);
-    RequestDispatcher dispatcher = request.getRequestDispatcher("subject-form.jsp");
+    request.setAttribute("subjects", subjects);
     request.setAttribute("subject", existingSubject);
+    RequestDispatcher dispatcher = request.getRequestDispatcher("subject-form.jsp");
     dispatcher.forward(request, response);
   }
 
   private void updateSubject(HttpServletRequest request, HttpServletResponse response) throws IOException {
     int id = Integer.parseInt(request.getParameter("id"));
     String name = request.getParameter("name");
-    String prerequisite = request.getParameter("prerequisite");
+    int prerequisite = Integer.parseInt(request.getParameter("prerequisite"));
     Subject subject = new Subject(id, name, prerequisite);
     subjectDAO.updateSubject(subject);
     response.sendRedirect(request.getContextPath() +"/subject-servlet?action=list");

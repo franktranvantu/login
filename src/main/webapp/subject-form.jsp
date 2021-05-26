@@ -38,7 +38,14 @@
 			</tr>
 			<tr>
 				<th>Prerequisite:</th>
-				<td><input type="text" name="prerequisite" size="45" required value="<c:out value='${subject.getPrerequisite()}' />" /></td>
+				<td>
+					<select name="prerequisite">
+						<option value="0" selected="selected">None</option>
+						<c:forEach var="sub" items="${subjects}">
+							<option value="${sub.getId()}" ${sub.getId() == subject.getPrerequisite() ? 'selected' : ''}>${sub.getName()}</option>
+						</c:forEach>
+					</select>
+				</td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center"><input type="submit" value="Save" /></td>

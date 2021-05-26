@@ -4,17 +4,24 @@ public class Subject {
 
   private int id;
   private String name;
-  private String prerequisite;
+  private int prerequisite;
+  private String prerequisiteName;
 
-  public Subject(String name, String prerequisite) {
+  public Subject(String name, int prerequisite) {
     this.name = name;
     this.prerequisite = prerequisite;
   }
 
-  public Subject(int id, String name, String prerequisite) {
+  public Subject(int id, String name, int prerequisite) {
     this.id = id;
     this.name = name;
     this.prerequisite = prerequisite;
+  }
+
+  public Subject(int id, String name, String prerequisiteName) {
+    this.id = id;
+    this.name = name;
+    this.prerequisiteName = prerequisiteName;
   }
 
   public int getId() {
@@ -33,11 +40,19 @@ public class Subject {
     this.name = name;
   }
 
-  public String getPrerequisite() {
+  public int getPrerequisite() {
     return prerequisite;
   }
 
-  public void setPrerequisite(String prerequisite) {
+  public void setPrerequisite(int prerequisite) {
     this.prerequisite = prerequisite;
+  }
+
+  public String getPrerequisiteName() {
+    return prerequisiteName;
+  }
+
+  public void setPrerequisiteName(String prerequisiteName) {
+    this.prerequisiteName = prerequisiteName;
   }
 }

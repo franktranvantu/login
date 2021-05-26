@@ -7,25 +7,35 @@ CREATE TABLE `student` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `student` (`id`, `name`, `status`, `major`) VALUES
-(112, 'Thomas', 'Full time', 'Software engineer'),
-(114, 'Frank', 'Part time', 'Software development');
+(1, 'Thomas', 'Full time', 'B'),
+(2, 'Frank', 'Part time', 'N'),
+(3, 'Oliver', 'Part time', 'D');
 
 CREATE TABLE `subject` (
   `id` int(11) AUTO_INCREMENT NOT NULL,
-  `name` varchar(50) DEFAULT NULL,
-  `prerequisite` varchar(120) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `prerequisite` int(11) NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `subject` (`id`, `name`, `prerequisite`) VALUES
-(1, 'Networking', 'System implementation');
+(1, 'Subject 1', 0),
+(2, 'Subject 2', 1),
+(3, 'Subject 3', 2);
+
+CREATE TABLE `student_subject_complete` (
+  `id` int(11) AUTO_INCREMENT NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `subject_id` int(11) NOT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `enrolment` (
-   `id` int(11) AUTO_INCREMENT NOT NULL,
-   `student_id` int(11) NOT NULL,
-   `subject_id` int(11) NOT NULL,
-   PRIMARY KEY (id)
+  `id` int(11) AUTO_INCREMENT NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `subject_id` int(11) NOT NULL,
+  PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `enrolment` (`id`, `student_id`, `subject_id`) VALUES
-(1, 112, 1), (2, 114, 1);
+(1, 1, 1), (2, 2, 1), (3, 3, 1);
