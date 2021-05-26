@@ -13,7 +13,7 @@
 				<h4>
 					<a href="${pageContext.request.contextPath}/student-servlet?action=new">Add New Student</a>
 					<br>
-					<a href="${pageContext.request.contextPath}">Admin's Home</a>
+					<a href="${pageContext.request.contextPath}">Home</a>
 				</h4>
 			</center>
 			<tr align=center>
