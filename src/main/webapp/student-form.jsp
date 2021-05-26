@@ -10,6 +10,8 @@
 	<center>
 		<h4>
 			<a href="${pageContext.request.contextPath}/student-servlet?action=list">List All Students</a>
+			<br>
+			<a href="${pageContext.request.contextPath}">Admin's Home</a>
 		</h4>
 	</center>
 	<div align="center">

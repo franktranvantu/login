@@ -10,6 +10,8 @@
 	<center>
 		<h4>
 			<a href="${pageContext.request.contextPath}/subject-servlet?action=list">List All Subjects</a>
+			<br>
+			<a href="${pageContext.request.contextPath}">Admin's Home</a>
 		</h4>
 	</center>
 	<div align="center">

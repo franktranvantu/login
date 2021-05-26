@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
-<title>Subject Management Application</title>
+<title>Subject List</title>
 </head>
 <body style="font-family: arial, serif;">
 	<div align="center" cellpadding=10>
@@ -12,7 +12,8 @@
 			<center>
 				<h4>
 					<a href="${pageContext.request.contextPath}/subject-servlet?action=new">Add New Subject</a>
-					<a href="${pageContext.request.contextPath}">Back</a>
+					<br>
+					<a href="${pageContext.request.contextPath}">Admin's Home</a>
 				</h4>
 			</center>
 			<tr align=center>

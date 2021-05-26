@@ -1,5 +1,10 @@
 package com.example.login.enrolment;
 
+import com.example.login.student.Student;
+import com.example.login.student.StudentDAO;
+import com.example.login.subject.Subject;
+import com.example.login.subject.SubjectDAO;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,9 +18,13 @@ import java.util.List;
 public class EnrolmentServlet extends HttpServlet {
 
   private EnrolmentDAO enrolmentDAO;
+  private StudentDAO studentDAO;
+  private SubjectDAO subjectDAO;
 
   public void init() {
     enrolmentDAO = new EnrolmentDAO();
+    studentDAO = new StudentDAO();
+    subjectDAO = new SubjectDAO();
   }
 
   @Override
@@ -31,37 +40,41 @@ public class EnrolmentServlet extends HttpServlet {
     }
     switch (action) {
       case "new":
-        showNewStudent(request, response);
+        showNewEnrolment(request, response);
         break;
       case "insert":
-        insertStudent(request, response);
+        insertEnrolment(request, response);
         break;
       case "delete":
-        deleteStudent(request, response);
+        deleteEnrolment(request, response);
         break;
       case "edit":
-        showEditStudent(request, response);
+        showEditEnrolment(request, response);
         break;
       case "update":
-        updateStudent(request, response);
+        updateEnrolment(request, response);
         break;
       case "show":
-        showStudent(request, response);
+        showEnrolment(request, response);
         break;
       default:
-        listStudent(request, response);
+        listEnrolment(request, response);
         break;
     }
   }
 
-  private void showNewStudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  private void showNewEnrolment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     List<Enrolment> enrolments = enrolmentDAO.selectAllEnrolments();
+    List<Student> students = studentDAO.selectAllStudents();
+    List<Subject> subjects = subjectDAO.selectAllSubjects();
     request.setAttribute("enrolments", enrolments);
+    request.setAttribute("students", students);
+    request.setAttribute("subjects", subjects);
     RequestDispatcher dispatcher = request.getRequestDispatcher("enrolment-form.jsp");
     dispatcher.forward(request, response);
   }
 
-  private void insertStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+  private void insertEnrolment(HttpServletRequest request, HttpServletResponse response) throws IOException {
     int studentId = Integer.parseInt(request.getParameter("student_id"));
     int subjectId = Integer.parseInt(request.getParameter("subject_id"));
     Enrolment enrolment = new Enrolment(studentId, subjectId);
@@ -69,13 +82,13 @@ public class EnrolmentServlet extends HttpServlet {
     response.sendRedirect(request.getContextPath()+"/enrolment-servlet?action=list");
   }
 
-  private void deleteStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+  private void deleteEnrolment(HttpServletRequest request, HttpServletResponse response) throws IOException {
     int id = Integer.parseInt(request.getParameter("id"));
     enrolmentDAO.deleteEnrolment(id);
     response.sendRedirect(request.getContextPath() +"/enrolment-servlet?action=list");
   }
 
-  private void showEditStudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  private void showEditEnrolment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     int id = Integer.parseInt(request.getParameter("id"));
     Enrolment enrolment = enrolmentDAO.selectEnrolment(id);
     RequestDispatcher dispatcher = request.getRequestDispatcher("enrolment-form.jsp");
@@ -83,7 +96,7 @@ public class EnrolmentServlet extends HttpServlet {
     dispatcher.forward(request, response);
   }
 
-  private void updateStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+  private void updateEnrolment(HttpServletRequest request, HttpServletResponse response) throws IOException {
     int id = Integer.parseInt(request.getParameter("id"));
     int studentId = Integer.parseInt(request.getParameter("student_id"));
     int subjectId = Integer.parseInt(request.getParameter("subject_id"));
@@ -92,14 +105,14 @@ public class EnrolmentServlet extends HttpServlet {
     response.sendRedirect(request.getContextPath() +"/enrolment-servlet?action=list");
   }
 
-  private void showStudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  private void showEnrolment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     List<Enrolment> enrolments = enrolmentDAO.selectAllEnrolments();
     request.setAttribute("enrolments", enrolments);
     RequestDispatcher dispatcher = request.getRequestDispatcher("enrolment-form.jsp");
     dispatcher.forward(request, response);
   }
 
-  private void listStudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  private void listEnrolment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     List<Enrolment> enrolments = enrolmentDAO.selectAllEnrolments();
     request.setAttribute("enrolments", enrolments);
     RequestDispatcher dispatcher = request.getRequestDispatcher("enrolment-list.jsp");
