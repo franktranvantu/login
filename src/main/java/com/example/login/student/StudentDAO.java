@@ -14,9 +14,9 @@ public class StudentDAO {
 
   private SubjectDAO subjectDAO;
 
-  private String url = "jdbc:mysql://localhost:3306/helen";
-  private String username = "root";
-  private String password = "frank";
+  private String url = "jdbc:mysql://172.21.3.49:3306/helen";
+  private String username = "bean";
+  private String password = "beandev@123";
 
   public StudentDAO() {
     subjectDAO = new SubjectDAO();
@@ -115,18 +115,23 @@ public class StudentDAO {
   public boolean isEnrolValid(int studentId, int subjectId) {
     Subject subject = subjectDAO.selectSubject(subjectId);
     String sql = "SELECT subject_id FROM student_subject_complete WHERE student_id = ?";
+    int count = 0;
     try (Connection connection = getConnection()) {
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
       preparedStatement.setInt(1, studentId);
       ResultSet rs = preparedStatement.executeQuery();
       while (rs.next()) {
+        count++;
         int completedSubjectId = rs.getInt("subject_id");
-        if (subject.getPrerequisite() == completedSubjectId) {
+        if (subject.getPrerequisite() <= completedSubjectId) {
           return true;
         }
       }
     } catch (Exception e) {
       e.printStackTrace();
+    }
+    if (count == 0 && subject.getPrerequisite() == 0) {
+      return true;
     }
     return false;
   }

@@ -11,9 +11,9 @@ import java.util.List;
 
 public class SubjectDAO {
 
-  private String url = "jdbc:mysql://localhost:3306/helen";
-  private String username = "root";
-  private String password = "frank";
+  private String url = "jdbc:mysql://172.21.3.49:3306/helen";
+  private String username = "bean";
+  private String password = "beandev@123";
 
   public Connection getConnection() {
     Connection connection = null;

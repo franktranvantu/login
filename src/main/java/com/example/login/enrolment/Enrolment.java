@@ -7,10 +7,12 @@ public class Enrolment {
   private String studentName;
   private int subjectId;
   private String subjectName;
+  private boolean isCompleted;
 
-  public Enrolment(int studentId, int subjectId) {
+  public Enrolment(int studentId, int subjectId, boolean isCompleted) {
     this.studentId = studentId;
     this.subjectId = subjectId;
+    this.isCompleted = isCompleted;
   }
 
   public Enrolment(int id, int studentId, int subjectId) {
@@ -19,10 +21,24 @@ public class Enrolment {
     this.subjectId = subjectId;
   }
 
+  public Enrolment(int id, int studentId, int subjectId, boolean isCompleted) {
+    this.id = id;
+    this.studentId = studentId;
+    this.subjectId = subjectId;
+    this.isCompleted = isCompleted;
+  }
+
   public Enrolment(int id, String studentName, String subjectName) {
     this.id = id;
     this.studentName = studentName;
     this.subjectName = subjectName;
+  }
+
+  public Enrolment(int id, String studentName, String subjectName, boolean isCompleted) {
+    this.id = id;
+    this.studentName = studentName;
+    this.subjectName = subjectName;
+    this.isCompleted = isCompleted;
   }
 
   public Enrolment(int studentId, String studentName, int subjectId, String subjectName) {
@@ -38,6 +54,15 @@ public class Enrolment {
     this.studentName = studentName;
     this.subjectId = subjectId;
     this.subjectName = subjectName;
+  }
+
+  public Enrolment(int id, int studentId, String studentName, int subjectId, String subjectName, boolean isCompleted) {
+    this.id = id;
+    this.studentId = studentId;
+    this.studentName = studentName;
+    this.subjectId = subjectId;
+    this.subjectName = subjectName;
+    this.isCompleted = isCompleted;
   }
 
   public int getId() {
@@ -78,5 +103,13 @@ public class Enrolment {
 
   public void setSubjectName(String subjectName) {
     this.subjectName = subjectName;
+  }
+
+  public boolean isCompleted() {
+    return isCompleted;
+  }
+
+  public void setCompleted(boolean completed) {
+    isCompleted = completed;
   }
 }

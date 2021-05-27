@@ -3,6 +3,6 @@
 <!DOCTYPE html>
 <html>
 <body>
-<c:redirect url="/enrolment-servlet"/>
+<c:redirect url="/login-servlet"/>
 </body>
 </html>

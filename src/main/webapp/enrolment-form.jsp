@@ -37,7 +37,7 @@
 				<td>
 					<select name="student_id">
 						<c:forEach var="student" items="${students}">
-							<option value="${student.getId()}">${student.getName()}</option>
+							<option value="${student.getId()}" ${student.getId() == enrolment.getStudentId() ? 'selected' : ''}>${student.getName()}</option>
 						</c:forEach>
 					</select>
 				</td>
@@ -47,9 +47,15 @@
 				<td>
 					<select name="subject_id">
 						<c:forEach var="subject" items="${subjects}">
-							<option value="${subject.getId()}">${subject.getName()}</option>
+							<option value="${subject.getId()}" ${subject.getId() == enrolment.getSubjectId() ? 'selected' : ''}>${subject.getName()}</option>
 						</c:forEach>
 					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>Completed:</th>
+				<td>
+					<input type="checkbox" name="isCompleted" ${enrolment.isCompleted() ? 'checked' : ''}>
 				</td>
 			</tr>
 			<tr>
@@ -57,6 +63,7 @@
 			</tr>
 		</table>
 		</form>
+		<p>${error}</p>
 	</div>
 </body>
 </html>
